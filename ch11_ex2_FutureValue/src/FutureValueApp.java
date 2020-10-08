@@ -67,7 +67,7 @@ public class FutureValueApp {
         
         for (int curRow = 0; curRow < rowCounter; curRow++) {
         	for (int curCol = 0; curCol < futureValues[curRow].length; ++curCol) {
-        		System.out.print(futureValues[curRow][curCol] + "/t ");
+        		System.out.print(futureValues[curRow][curCol] + " ");
         	}
         	System.out.println();
         }
