@@ -13,7 +13,7 @@ public class EmailCreatorApp {
 		
 		EmailRecipient emailRecipient = new EmailRecipient(emailAddress, firstName, lastName);
 		
-		return emailRecipient
+		return emailRecipient;
 	}
 
 	public static String convertToTitleCase(String inputStr) {
