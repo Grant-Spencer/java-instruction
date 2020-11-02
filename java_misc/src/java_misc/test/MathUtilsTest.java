@@ -44,4 +44,8 @@ class MathUtilsTest {
 		Assertions.assertEquals(6, sum);
 	}
 
+	@Test
+	public void testSumThrowsException() {
+		Assertions.assertThrows(IllegalArgumentException.class, () -> MathUtils.sum());
+	}
 }

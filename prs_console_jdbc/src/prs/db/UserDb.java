@@ -2,6 +2,7 @@ package prs.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -47,11 +48,44 @@ public class UserDb {
 				boolean isReviewer = rs.getBoolean("isReviewer");
 				boolean isAdmin = rs.getBoolean("isAdmin");
 				
-				User user = new User(id, userName, password, firstName, lastName, phoneNumber, email)
+				User user = new User(id, userName, password, firstName, lastName, phoneNumber, email, isReviewer, isAdmin);
+						
+						users.add(user);
 			}
 			
 		} catch (SQLException e) {
 			throw new PrsDataException("Error retrieving users. Msg: " + e.getMessage());
+		}
+	}
+
+	public User autheticateUser(String userName, String password) {
+		String selectByUserAndPass = "SELECT * FROM user WHERE Username =? AND password = ?";
+
+		try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(selectByUserAndPass);) {
+			ps.setString(1, userName);
+			ps.setString(2, password);
+
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				int id = rs.getInt("ID");
+				String userNameFromDb  = rs.getString("UserName");
+				String passwordFromDb  = rs.getString("Password");
+				String firstName = rs.getString("firstName");
+				String lastName = rs.getString("lastName");
+				String phoneNumber = rs.getString("phoneNUmber");
+				String email = rs.getString("email");
+				boolean isReviewer = rs.getBoolean("isReviewer");
+				boolean isAdmin = rs.getBoolean("isAdmin");
+				
+				User user = new User(id, userNameFromDb, passwordFromDb, firstName, lastName, phoneNumber, email, isReviewer, isAdmin);
+			
+						return user;
+			}else {
+				return null;
+			}
+		} catch (SQLException e) {
+			throw new PrsDataException("Error authenticating user. Msg: " + e.getMessage());
 		}
 	}
 }
