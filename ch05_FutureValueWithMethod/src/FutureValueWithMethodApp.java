@@ -42,7 +42,6 @@ public class FutureValueWithMethodApp {
 	}
 
 	public static double calculateFutureValue(double monthlyInvestment, double monthlyInterestRate, int months) {
-		System.out.println("In calculateFutureValue");
 		double futureValue = 0.0;
 		for (int i = 1; i <= months; i++) {
 			futureValue = (futureValue + monthlyInvestment) * (1 + monthlyInterestRate);
